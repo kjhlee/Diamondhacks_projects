@@ -3,6 +3,8 @@ package bapp.budget_backend.util;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,7 +16,7 @@ public class JwtUtil {
     private final Key key;
     private final long expTime;
 
-    public JwtUtil(String secretKey, long expTime){
+    public JwtUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") long expTime){
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
         this.expTime = expTime;
     }

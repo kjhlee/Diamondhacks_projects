@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 import bapp.budget_backend.models.Budget;
+import bapp.budget_backend.models.BudgetAllocation;
 import bapp.budget_backend.services.BudgetService;
 
 @RestController
@@ -41,28 +42,42 @@ public class BudgetController {
         return new ResponseEntity<Budget>(nBudget, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getBudgetById(@PathVariable Long id){
-        Optional<Budget> budget = budService.getBudgetById(id);
+    @GetMapping("/{budgetId}")
+    public ResponseEntity<?> getBudgetById(@PathVariable Long budgetId){
+        Optional<Budget> budget = budService.getBudgetById(budgetId);
         return budget.isPresent()
                 ? ResponseEntity.ok(budget.get())
                 : ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateBudget(@PathVariable Long id, @RequestBody Budget updatedBudget){
-        Optional<Budget> budOpt = budService.getBudgetById(id);
+    @PutMapping("/{budgetId}")
+    public ResponseEntity<?> updateBudget(@PathVariable Long budgetId, @RequestBody Budget updatedBudget){
+        Optional<Budget> budOpt = budService.getBudgetById(budgetId);
         if(budOpt.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        updatedBudget.setId(id);
+        updatedBudget.setId(budgetId);
         return ResponseEntity.ok(budService.updateBudget(updatedBudget));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBudget(@PathVariable Long id){
-        budService.deleteBudget(id);
+    @DeleteMapping("/{budgetId}")
+    public ResponseEntity<?> deleteBudget(@PathVariable Long budgetId){
+        budService.deleteBudget(budgetId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{budgetId}/allocate")
+    public ResponseEntity<Budget> addAllocation(@PathVariable Long budgetId, @RequestBody BudgetAllocation budAllocation){
+        Budget bud = budService.addBudgetAllocation(budgetId, budAllocation);
+        return new ResponseEntity<Budget>(bud, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{budgetId}/allocation/{allocationId}")
+    public ResponseEntity<?> deleteAllocation(
+        @PathVariable Long budgetId,
+        @PathVariable Long allocationId) {
+    budService.removeBudgetAllocation(budgetId, allocationId);
+    return ResponseEntity.noContent().build();
+}
 
 }

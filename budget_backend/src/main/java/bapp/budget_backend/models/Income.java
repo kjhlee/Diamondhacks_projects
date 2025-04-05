@@ -30,7 +30,5 @@ public class Income {
 
     @ManyToOne
     private User user;
-
-    //getters and setters
     
 }

@@ -1,4 +1,4 @@
-package bapp.budget_backend.repositories;
+package bapp.budget_backend.repository;
 
 import bapp.budget_backend.models.Income;
 import org.springframework.data.jpa.repository.JpaRepository;

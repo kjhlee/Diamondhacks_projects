@@ -1,7 +1,7 @@
 package bapp.budget_backend.services;
 import bapp.budget_backend.models.Income;
 import bapp.budget_backend.models.enums.Frequency;
-import bapp.budget_backend.repositories.IncomeRepository;
+import bapp.budget_backend.repository.IncomeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

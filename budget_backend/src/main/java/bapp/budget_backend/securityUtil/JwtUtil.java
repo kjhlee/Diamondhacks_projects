@@ -1,9 +1,10 @@
-package bapp.budget_backend.util;
+package bapp.budget_backend.securityUtil;
 
 import java.security.Key;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -12,6 +13,7 @@ import io.jsonwebtoken.security.Keys;
 
 
 // generates the JWT tokens for authentication
+@Component
 public class JwtUtil {
     private final Key key;
     private final long expTime;

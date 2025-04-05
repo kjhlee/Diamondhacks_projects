@@ -16,6 +16,8 @@ public class RegisterDTO{
     @Email
     @NotBlank
     private String email;
+    
+    private String name;
 
     @NotBlank
     private String password;

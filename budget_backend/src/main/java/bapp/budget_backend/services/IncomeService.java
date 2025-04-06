@@ -3,7 +3,6 @@ package bapp.budget_backend.services;
 import bapp.budget_backend.models.enums.Frequency;
 import bapp.budget_backend.models.Income;
 import bapp.budget_backend.models.Savings;
-import bapp.budget_backend.models.User;
 import bapp.budget_backend.repository.IncomeRepository;
 import bapp.budget_backend.repository.SavingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Budget } from "../types";
 import AddBudgetModal from "../components/AddBudgetModal";
+import BudgetCard from "../components/BudgetCard";
 
 function AllBudgets(){
     const [budgets, setBudgets] = useState<Budget[]> ([]);
@@ -44,14 +45,12 @@ function AllBudgets(){
             {budgets.length === 0 ? (
                 <p>No Budgets found.</p>
             ) : (
-                <ul>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                     {budgets.map((budget) => (
-                        <li key = {budget.id}>
-                            <h3>{budget.budgetName}</h3>
-                            <p>Total Amount: ${budget.totalAmount.toFixed(2)}</p>
-                        </li>
+                        <BudgetCard key={budget.id} budget={budget} />
                     ))}
-                </ul>
+                </div>
+
             )}
             {showModal && (
                 <AddBudgetModal

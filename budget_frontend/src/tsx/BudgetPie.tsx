@@ -9,10 +9,16 @@ import AddAllocationModal from "../components/AddAllocationModal";
 const BudgetPie = () => {
     const [budget, setBudget] = useState<Budget | null>(null);
     const [loading, setLoading] = useState(true);
+    const [totalSavings, setTotalSavings] = useState<number | null>(null);
     const { id } = useParams();
 
     const [showModal, setShowModal] = useState(false);
-
+    const fetchTotalSavings = () => {
+        fetch("http://localhost:8080/savings/total")
+          .then((res) => res.json())
+          .then((data) => setTotalSavings(data))
+          .catch((err) => console.error("Failed to fetch total savings:", err));
+      };
     useEffect(() => {
         fetchBudgetById(Number(id))
         .then((data) => {
@@ -25,6 +31,11 @@ const BudgetPie = () => {
         })
     }, []);
 
+    useEffect(() => {
+        fetchTotalSavings()
+      }, []);
+      
+
     if(loading) return <div className = "p-6">Loading Budget...</div>;
     if(!budget) return <div className = "p-6 text-red-500">Budget not found</div>;
 
@@ -32,6 +43,12 @@ const BudgetPie = () => {
         <div className="p-6">
             <BudgetPieChart budget={budget} />
             <h3>Allocations: </h3>
+            {totalSavings !== null && (
+                <p className="mt-2 text-green-600 text-lg font-semibold">
+                    Total Savings: ${totalSavings.toFixed(2)}
+                </p>
+            )}
+
             <button onClick = {() => setShowModal(true)}> + allocation</button>
             <ul>
                 {budget.allocations.map((allocation) => (
@@ -48,6 +65,7 @@ const BudgetPie = () => {
                 ))}
             </ul>
 
+
             {showModal && (
                 <AddAllocationModal 
                     budgetId = {Number(id)}
@@ -58,6 +76,7 @@ const BudgetPie = () => {
                         fetchBudgetById(Number(id)).then((data) => {
                             setBudget(data);
                         });
+                        fetchTotalSavings();
                     }}
                 />
             )}

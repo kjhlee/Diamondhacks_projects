@@ -40,6 +40,29 @@ const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess, tot
         }
 
     };
+    const handleSavings = async () => {
+        const newAmount = parseFloat(amount);
+    
+        if (isNaN(newAmount) || newAmount <= 0) {
+          setError("Please enter a valid amount");
+          return;
+        }
+    
+        const res = await fetch(`http://localhost:8080/savings/add`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: newAmount }),
+        });
+    
+        if (res.ok) {
+        console.log(res.json());
+          onSuccess();
+          onClose();
+        } else {
+          console.error("Failed to add to savings");
+        }
+    };
+    
 
 
     return (
@@ -61,6 +84,7 @@ const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess, tot
                 />
                 <div className = "modal-buttons">
                     <button onClick = {onClose}>Cancel</button>
+                    <button onClick = {handleSavings}>Add to savings</button>
                     <button onClick = {handleSubmit}>Submit</button>
                 </div>
                 {error && <p style={{ color: "red", marginTop: "8px" }}>{error}</p>}

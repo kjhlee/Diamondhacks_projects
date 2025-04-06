@@ -39,7 +39,8 @@ public class IncomeService {
                 transaction.setRouteToSavings(income.isRouteToSavings());
 
                 if(transaction.isRouteToSavings()){
-                    Savings savings = savingsRepository.findByUserId(transaction.getUser().getId());
+                    Savings savings = savingsRepository.findByUserId(transaction.getUser().getId())
+                        .orElseThrow(() -> new IllegalArgumentException("No savings found"));
                     if(savings != null){
                         savings.addToSavings(transaction.getAmount());
                         savingsRepository.save(savings);
@@ -79,7 +80,8 @@ public class IncomeService {
     public Income addNewIncome(Income income, boolean routeToSavings){
         if(routeToSavings){
             //route to savings
-            Savings savings = savingsRepository.findByUserId(income.getUser().getId());
+            Savings savings = savingsRepository.findByUserId(income.getUser().getId())
+                .orElseThrow(() -> new IllegalArgumentException("No savings"));
             if(savings != null){
                 savings.addToSavings(income.getAmount());
                 savingsRepository.save(savings);

@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import bapp.budget_backend.models.enums.Categories;
 
 @Entity
 @Getter
@@ -22,10 +21,9 @@ public class BudgetAllocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Categories category;
+    private String category;
 
-    private Double amount;
+    private Double percentage;
 
 
     @ManyToOne

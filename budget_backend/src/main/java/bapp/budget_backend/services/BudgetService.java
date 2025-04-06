@@ -39,23 +39,27 @@ public class BudgetService {
         budgetRepo.deleteById(id);
     }
 
-    public Budget addBudgetAllocation(Long id, BudgetAllocation budAllocation){
+    public Budget addBudgetAllocation(Long id, BudgetAllocation budAllocation) {
         Budget currBudget = budgetRepo.findById(id)
             .orElseThrow(() -> new RuntimeException("Budget not found"));
-
-        double currentTotal = currBudget.getAllocations().stream()
-            .mapToDouble(BudgetAllocation::getAmount)
-            .sum();
-
-        if(currentTotal + budAllocation.getAmount() > currBudget.getTotalAmount()){
-            throw new IllegalArgumentException("Allocation exceeds budget total");
-        }
+        // Double newPercentage = budAllocation.getPercentage();
+        // if(newPercentage == null){
+        //     throw new IllegalArgumentException("Allocation percentage must not be null");
+        // }
+        // double currentTotalPercentage = currBudget.getAllocations().stream()
+        //     .mapToDouble(BudgetAllocation::getPercentage)
+        //     .sum();
+    
+        // if (currentTotalPercentage + budAllocation.getPercentage() > 100.0) {
+        //     throw new IllegalArgumentException("Total allocation exceeds 100%");
+        // }
+    
         currBudget.addBudgetAllocation(budAllocation);
         budAllocation.setBudget(currBudget);
         budgetRepo.save(currBudget);
         return currBudget;
-
     }
+    
 
     public void removeBudgetAllocation(Long id, Long budId){
         Budget currBudget = budgetRepo.findById(id)

@@ -1,7 +1,7 @@
 export interface BudgetAllocation {
     id: number;
     category: string;
-    amount: number;
+    percentage: number;
 }
 
 export interface User {

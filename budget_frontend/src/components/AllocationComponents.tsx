@@ -1,13 +1,13 @@
 import "./AllocationComponents.css"
 interface Props {
     category: string;
-    amount: number;
+    percentage: number;
     allocationId: number;
     budgetId: number;
     onDelete: () => void;
 }
 
-const AllocationComponents: React.FC<Props> = ({ category, amount, allocationId, budgetId, onDelete }) => {
+const AllocationComponents: React.FC<Props> = ({ category, percentage, allocationId, budgetId, onDelete }) => {
     const handleDelete = async () => {
         const confirmed = window.confirm(`Delete Allocation for ${category}?`);
         if(!confirmed){
@@ -33,7 +33,7 @@ const AllocationComponents: React.FC<Props> = ({ category, amount, allocationId,
     return (
         <div className = "main-card">
             <h4 className = "cat">{category}</h4>
-            <p>${amount.toFixed(2)}</p>
+            <p>{percentage.toFixed(2)}%</p>
             <button onClick = {handleDelete}>x</button>
         </div>
     )

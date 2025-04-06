@@ -9,10 +9,9 @@ interface Props {
     onSuccess: () => void;
 }
 
-const CATEGORIES = ["RENT", "GROCERIES", "GAS", "SAVINGS", "OTHER"];
 
 const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess, totalAllocated, budgetTotal }) =>{
-    const [category, setCategory] = useState("RENT");
+    const [category, setCategory] = useState("");
     const [amount, setAmount] = useState("");
     const [error, setError] = useState("");
     
@@ -23,14 +22,14 @@ const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess, tot
             setError("Please enter a valid amount");
             return;
         }
-        if (newTotal > budgetTotal) {
+        if (newTotal > 100) {
             setError("This allocation would exceed your total budget. ");
             return;
         }
         const res = await fetch(`http://localhost:8080/budget/${budgetId}/allocate`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({category, amount: parseFloat(amount)}),
+            body: JSON.stringify({category, percentage: parseFloat(amount)}),
         });
 
         if(res.ok) {
@@ -48,17 +47,12 @@ const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess, tot
             <div className = "modal-box">
                 <h2>Add New Allocation</h2>
                 <label>Category</label>
-                <select
+                <input
+                    type = "String"
+                    placeholder = "Category"
                     value = {category}
                     onChange = {(e) => setCategory(e.target.value)}
-                >
-                {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
-                        {cat}
-                    </option>
-                ))}
-                </select>
-
+                />
                 <input
                     type = "number"
                     placeholder = "Amount"

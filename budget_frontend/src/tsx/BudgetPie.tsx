@@ -38,7 +38,7 @@ const BudgetPie = () => {
                 <AllocationComponents
                     key = {allocation.id}
                     category = {allocation.category}
-                    amount = {allocation.amount}
+                    percentage = {allocation.percentage}
                     budgetId={budget.id}
                     allocationId={allocation.id}
                     onDelete={() => {
@@ -52,7 +52,7 @@ const BudgetPie = () => {
                 <AddAllocationModal 
                     budgetId = {Number(id)}
                     budgetTotal = {budget.totalAmount}
-                    totalAllocated={budget.allocations.reduce((sum, a) => sum + a.amount, 0)}
+                    totalAllocated={budget.allocations.reduce((sum, a) => sum + a.percentage, 0)}
                     onClose = {() => setShowModal(false)}
                     onSuccess={() => {
                         fetchBudgetById(Number(id)).then((data) => {

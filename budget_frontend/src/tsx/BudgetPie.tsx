@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import BudgetPieChart from "../components/BudgetPieChartComponent";
-import { Budget } from "../types"
+import { Budget} from "../types"
 import { fetchBudgetById } from "../services/budgetService";
 import { useParams } from "react-router-dom";
-
+import AllocationComponents from "../components/AllocationComponents"
+import AddAllocationModal from "../components/AddAllocationModal";
 
 const BudgetPie = () => {
     const [budget, setBudget] = useState<Budget | null>(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
+
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         fetchBudgetById(Number(id))
@@ -24,9 +27,33 @@ const BudgetPie = () => {
 
     if(loading) return <div className = "p-6">Loading Budget...</div>;
     if(!budget) return <div className = "p-6 text-red-500">Budget not found</div>;
+
     return (
         <div className="p-6">
-        <BudgetPieChart budget={budget} />
+            <BudgetPieChart budget={budget} />
+            <h3>Allocations: </h3>
+            <button onClick = {() => setShowModal(true)}> + allocation</button>
+            <ul>
+                {budget.allocations.map((allocation) => (
+                <AllocationComponents
+                    key = {allocation.id}
+                    category = {allocation.category}
+                    amount = {allocation.amount}
+                />
+                ))}
+            </ul>
+
+            {showModal && (
+                <AddAllocationModal 
+                    budgetId = {Number(id)}
+                    onClose = {() => setShowModal(false)}
+                    onSuccess={() => {
+                        fetchBudgetById(Number(id)).then((data) => {
+                            setBudget(data);
+                        });
+                    }}
+                />
+            )}
         </div>
     );
 };

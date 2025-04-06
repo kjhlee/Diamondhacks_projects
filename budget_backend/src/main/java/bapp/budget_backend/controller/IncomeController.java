@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/income")
+@CrossOrigin(origins = "http://localhost:3000")
 public class IncomeController{
     
     @Autowired
@@ -26,7 +28,7 @@ public class IncomeController{
         return new ResponseEntity<>(newIncome, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleted/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteIncome(@PathVariable Long id){
         incomeService.deleteIncome(id);
         return new ResponseEntity<>("Income deleted successfully", HttpStatus.OK);

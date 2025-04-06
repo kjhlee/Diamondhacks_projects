@@ -18,9 +18,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
   "include": [
-    "src"
-, "tsx", "reportWebVitals.ts", "react-app-env.d.ts"  ]
+    "src",
+    "tsx",
+    "reportWebVitals.ts",
+    "react-app-env.d.ts"
+  ]
 }

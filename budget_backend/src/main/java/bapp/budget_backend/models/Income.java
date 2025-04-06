@@ -25,6 +25,8 @@ public class Income {
     @Enumerated(EnumType.STRING)
     private Frequency frequency;
 
+    private boolean routeToSavings; //if true, add to savings. else add to total income
+
     private LocalDate startDate;
     private LocalDate nextPaymentDate;
 

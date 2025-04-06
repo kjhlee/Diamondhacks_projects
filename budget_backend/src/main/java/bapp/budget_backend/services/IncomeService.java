@@ -1,8 +1,11 @@
 package bapp.budget_backend.services;
-import bapp.budget_backend.models.Income;
-import bapp.budget_backend.models.enums.Frequency;
-import bapp.budget_backend.repository.IncomeRepository;
 
+import bapp.budget_backend.models.enums.Frequency;
+import bapp.budget_backend.models.Income;
+import bapp.budget_backend.models.Savings;
+import bapp.budget_backend.models.User;
+import bapp.budget_backend.repository.IncomeRepository;
+import bapp.budget_backend.repository.SavingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,9 @@ public class IncomeService {
 
     @Autowired
     private IncomeRepository incomeRepository;
+
+    @Autowired
+    private SavingsRepository savingsRepository;
 
     @Scheduled(cron = "0 0 0 * * ?") //runs everyday at midnight
     public void processRecurringIncomes(){
@@ -31,13 +37,32 @@ public class IncomeService {
                 transaction.setUser(income.getUser());
                 transaction.setRecurring(false);
                 transaction.setStartDate(LocalDate.now());
+                transaction.setRouteToSavings(income.isRouteToSavings());
 
-                incomeRepository.save(transaction);
+                if(transaction.isRouteToSavings()){
+                    Savings savings = savingsRepository.findByUserId(transaction.getUser().getId());
+                    if(savings != null){
+                        savings.addToSavings(transaction.getAmount());
+                        savingsRepository.save(savings);
+                    }
+                    else{
+                        incomeRepository.save(transaction);
+                    }
 
-                //update next payment date
-                LocalDate updatedNextDate = getNextPaymentDate(income.getNextPaymentDate(), income.getFrequency());
-                income.setNextPaymentDate(updatedNextDate);
-                incomeRepository.save(income);
+                    //update next payment date
+                    LocalDate updatedNextDate = getNextPaymentDate(income.getNextPaymentDate(), income.getFrequency());
+                    income.setNextPaymentDate(updatedNextDate);
+                    incomeRepository.save(income);
+                }
+            }
+        }
+            //handles deleting expired one-time incomes
+        for(Income income : allIncomes){
+            if(!income.isRecurring()){
+                boolean shouldDelete = income.getNextPaymentDate() != null &&income.getNextPaymentDate().isBefore(LocalDate.now());
+                if(shouldDelete){
+                    incomeRepository.delete(income);
+                }
             }
         }
     }
@@ -52,14 +77,31 @@ public class IncomeService {
     }
 
     //to initialize new income
-    public void addIncome(Income income){
+    public Income addNewIncome(Income income, boolean routeToSavings){
+        if(routeToSavings){
+            //route to savings
+            Savings savings = savingsRepository.findByUserId(income.getUser().getId());
+            if(savings != null){
+                savings.addToSavings(income.getAmount());
+                savingsRepository.save(savings);
+            }
+            if(!income.isRecurring()){
+                return income;
+            }
+        }
         if(income.isRecurring()){
             income.setNextPaymentDate(income.getStartDate());
         }
-        incomeRepository.save(income);
+
+        return incomeRepository.save(income);
+
     }
 
     public List<Income> getIncomesById(Long userId){
         return incomeRepository.findByUserId(userId);
+    }
+
+    public void deleteIncome(Long id){
+        incomeRepository.deleteById(id);
     }
 }

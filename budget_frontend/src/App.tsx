@@ -9,6 +9,8 @@ import Register from './tsx/Register'
 import Login from './tsx/Login'
 import BudgetPie from './tsx/BudgetPie';
 import AllBudgets from './tsx/AllBudgets';
+import IncomeForm from './components/IncomeForm';
+import IncomeList from './components/IncomeList';
 
 function App() {
   return (

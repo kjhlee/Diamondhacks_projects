@@ -1,0 +1,118 @@
+.body {
+    background: linear-gradient(-45deg, #52ee90, #3cdce7, #23d588);
+    width: 100%;
+    min-height: 100vh;
+    max-height: fit-content;
+}
+
+h1 {
+    font-size: 2.5rem;
+    padding: 1rem;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  height: 5rem;
+}
+
+#login-button, #register-button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3); /* Gradient background */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.buttons {
+    float: right;
+    padding: 1rem;
+}
+
+#login-button {
+    margin-right: 0.5rem;
+}
+
+.homepage {
+    width: 95%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.project-container {
+    background-color: hsla(0, 0%, 100%, .6);
+    border: 2px solid hsla(0, 0%, 100%, .8);
+    margin-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 20px;
+}
+
+.project-header {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    margin: auto;
+}
+
+.project-description {
+    font-size: 0.8rem;
+    word-wrap: break-word;
+}
+
+.team-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
+    background-color: hsla(0, 0%, 100%, .6);
+    border: 2px solid hsla(0, 0%, 100%, .8);
+    border-radius: 20px;
+}
+
+.team-header {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    margin: auto;
+}
+
+.team-description {
+    display: flex;
+}
+
+.member-container {
+    display: block;
+    width: 27%;
+    height: 70vh;
+    margin: auto;
+    margin-bottom: 1rem;
+    background-color: rgb(255, 255, 255);
+    contain: content;
+    border-radius: 20px;
+}
+
+img {
+    max-height: 10px;
+    max-width: 10px;
+}
+
+.member-description {
+    position: fixed;
+    bottom: 1%;
+    width: 85%;
+    word-wrap: break-word;
+    margin:auto;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}

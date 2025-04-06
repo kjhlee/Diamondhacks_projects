@@ -1,4 +1,5 @@
-// import "./styles/Login.css";
+import "../css/Login.css"
+import backgroundImg from "../static/background-image.jpg"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -36,7 +37,8 @@ function Login(){
     }
     return(
         <div className="login">
-            <form onSubmit={handleLogin}>
+            <img src={backgroundImg} alt=""></img>
+            <form onSubmit={handleLogin} className="login-form">
                 <h1>Log In</h1>
                 <div className="login-inputs">
                     <div className="input-field">
@@ -62,10 +64,10 @@ function Login(){
                         />
                     </div>
                     <button id="submit" type="submit">Log In</button>
+                    <p>Don't have an account?</p>
+                    <p><a href="http://localhost:3000/register">Click here to register!</a></p>
                 </div>
             </form>
-            <p>Don't have an account?</p>
-            <p><a href="http://localhost:3000/register">Click here to register!</a></p>
         </div>
     )
 }

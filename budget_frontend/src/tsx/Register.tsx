@@ -1,4 +1,5 @@
-// import "./styles/Register.css";
+import "../css/Register.css"
+import backgroundImg from "../static/background-image.jpg"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -44,8 +45,9 @@ function Register(){
     }
 
     return(
-        <div className="register-form">
-            <form onSubmit={handleRegister}>
+        <div className="register">
+            <img src={backgroundImg} alt=""></img>
+            <form onSubmit={handleRegister} className="register-form">
                 <h1>Register</h1>
                 <div className="register-inputs">
                     <div className="input-field">
@@ -93,10 +95,10 @@ function Register(){
                         />
                     </div>
                     <button id="submit" type="submit">Register</button>
+                    <p>Already have an account?</p>
+                    <p><a href="http://localhost:3000/login">Click here to log in!</a></p>
                 </div>
             </form>
-            <p>Already have an account?</p>
-            <p><a href="http://localhost:3000/login">Click here to log in!</a></p>
         </div>
     )
 }

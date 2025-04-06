@@ -39,6 +39,11 @@ const BudgetPie = () => {
                     key = {allocation.id}
                     category = {allocation.category}
                     amount = {allocation.amount}
+                    budgetId={budget.id}
+                    allocationId={allocation.id}
+                    onDelete={() => {
+                        fetchBudgetById(Number(id)).then((data) => setBudget(data));
+                    }}
                 />
                 ))}
             </ul>
@@ -46,6 +51,8 @@ const BudgetPie = () => {
             {showModal && (
                 <AddAllocationModal 
                     budgetId = {Number(id)}
+                    budgetTotal = {budget.totalAmount}
+                    totalAllocated={budget.allocations.reduce((sum, a) => sum + a.amount, 0)}
                     onClose = {() => setShowModal(false)}
                     onSuccess={() => {
                         fetchBudgetById(Number(id)).then((data) => {
@@ -54,6 +61,7 @@ const BudgetPie = () => {
                     }}
                 />
             )}
+            
         </div>
     );
 };

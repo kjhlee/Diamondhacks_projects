@@ -8,6 +8,7 @@ import Home from './tsx/Home'
 import Register from './tsx/Register'
 import Login from './tsx/Login'
 import BudgetPie from './tsx/BudgetPie';
+import AllBudgets from './tsx/AllBudgets';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path = "/budgetpie/:id" element = {<BudgetPie/>} />
+      <Route path = "/allbudgets" element = {<AllBudgets />} />
     </Routes>
   </BrowserRouter>
   );

@@ -76,8 +76,9 @@ public class BudgetController {
     public ResponseEntity<?> deleteAllocation(
         @PathVariable Long budgetId,
         @PathVariable Long allocationId) {
-    budService.removeBudgetAllocation(budgetId, allocationId);
-    return ResponseEntity.noContent().build();
-}
+            
+        budService.removeBudgetAllocation(budgetId, allocationId);
+        return ResponseEntity.noContent().build();
+    }
 
 }

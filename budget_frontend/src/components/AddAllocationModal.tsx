@@ -1,16 +1,32 @@
 import React, { useState } from "react";
 import "./AddAllocationModal.css"
+
 interface Props {
     budgetId: number;
+    totalAllocated: number;
+    budgetTotal: number;
     onClose: () => void;
     onSuccess: () => void;
 }
 
-const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess }) =>{
-    const [category, setCategory] = useState("");
+const CATEGORIES = ["RENT", "GROCERIES", "GAS", "SAVINGS", "OTHER"];
+
+const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess, totalAllocated, budgetTotal }) =>{
+    const [category, setCategory] = useState("RENT");
     const [amount, setAmount] = useState("");
+    const [error, setError] = useState("");
     
     const handleSubmit = async () =>{
+        const newAmount = parseFloat(amount);
+        const newTotal = totalAllocated + newAmount;
+        if(isNaN(newAmount) || newAmount <= 0){
+            setError("Please enter a valid amount");
+            return;
+        }
+        if (newTotal > budgetTotal) {
+            setError("This allocation would exceed your total budget. ");
+            return;
+        }
         const res = await fetch(`http://localhost:8080/budget/${budgetId}/allocate`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -31,12 +47,17 @@ const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess }) =
         <div className = "modal-overlay">
             <div className = "modal-box">
                 <h2>Add New Allocation</h2>
-                <input
-                    type = "text"
-                    placeholder = "Category"
+                <label>Category</label>
+                <select
                     value = {category}
                     onChange = {(e) => setCategory(e.target.value)}
-                />
+                >
+                {CATEGORIES.map((cat) => (
+                    <option key={cat} value={cat}>
+                        {cat}
+                    </option>
+                ))}
+                </select>
 
                 <input
                     type = "number"
@@ -48,7 +69,7 @@ const AddAllocationModal: React.FC<Props> = ({ budgetId, onClose, onSuccess }) =
                     <button onClick = {onClose}>Cancel</button>
                     <button onClick = {handleSubmit}>Submit</button>
                 </div>
-                
+                {error && <p style={{ color: "red", marginTop: "8px" }}>{error}</p>}
             </div>
         </div>
     )

@@ -42,6 +42,14 @@ public class BudgetService {
     public Budget addBudgetAllocation(Long id, BudgetAllocation budAllocation){
         Budget currBudget = budgetRepo.findById(id)
             .orElseThrow(() -> new RuntimeException("Budget not found"));
+
+        double currentTotal = currBudget.getAllocations().stream()
+            .mapToDouble(BudgetAllocation::getAmount)
+            .sum();
+
+        if(currentTotal + budAllocation.getAmount() > currBudget.getTotalAmount()){
+            throw new IllegalArgumentException("Allocation exceeds budget total");
+        }
         currBudget.addBudgetAllocation(budAllocation);
         budAllocation.setBudget(currBudget);
         budgetRepo.save(currBudget);

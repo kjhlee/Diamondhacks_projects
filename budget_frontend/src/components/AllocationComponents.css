@@ -1,6 +1,7 @@
 
 .main-card{
     border: solid black;
+    width: 40%;
     margin: 10px;
     padding: 10px;
     display: flex;

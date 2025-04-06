@@ -52,23 +52,23 @@ function Register(){
                 <div className="register-inputs">
                     <div className="input-field">
                         <input 
-                            type = "text" 
-                            id = "name" 
-                            name = "name" 
-                            value = {name}
-                            placeholder = "Name" 
-                            onChange = {(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="input-field">
-                        <input 
                             type = "email" 
                             id = "email" 
                             name = "email" 
                             value = {email} 
                             placeholder = "Email" 
                             onChange = {(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="input-field">
+                        <input 
+                            type = "text" 
+                            id = "name" 
+                            name = "name" 
+                            value = {name}
+                            placeholder = "Name" 
+                            onChange = {(e) => setName(e.target.value)}
                             required
                         />
                     </div>

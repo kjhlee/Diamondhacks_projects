@@ -1,0 +1,85 @@
+img {
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.login {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    align-items: center;
+}
+
+.login-form {
+    position: relative;
+    margin: auto;
+    background-color: hsla(0, 0%, 100%, .4);
+    color: hsl(0, 0%, 100%);
+    width: fit-content;
+    padding: 20px;
+    border: 2px solid hsla(0, 0%, 100%, .7);
+    border-radius: 25px;
+    backdrop-filter: blur(8px);
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    margin-top: 5%;
+}
+
+input {
+    width: 25vw;
+    height: 5vh;
+    padding-inline: 1.25rem;
+    border-radius: 25px;
+    border-color: whitesmoke;
+    background-color: hsla(0, 0%, 100%, .5);
+    margin-bottom: 0.6rem;
+}
+
+input::placeholder {
+    color: hsl(0, 0%, 0%);
+}
+
+h1 {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    color: hsl(0, 10%, 10%);
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+p {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.8rem;
+    margin-bottom: 1.5%;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: linear-gradient(135deg, #6e8efb, #a777e3); 
+}
+
+#submit{
+    background: linear-gradient(135deg, #6e8efb, #a777e3); 
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 8px 8px;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    margin-bottom: 10%;
+}

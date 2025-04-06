@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Service
 public class IncomeService {
 
@@ -56,5 +57,9 @@ public class IncomeService {
             income.setNextPaymentDate(income.getStartDate());
         }
         incomeRepository.save(income);
+    }
+
+    public List<Income> getIncomesById(Long userId){
+        return incomeRepository.findByUserId(userId);
     }
 }

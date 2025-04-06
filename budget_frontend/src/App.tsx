@@ -7,6 +7,7 @@ import './App.css';
 import Home from './tsx/Home'
 import Register from './tsx/Register'
 import Login from './tsx/Login'
+import BudgetPie from './tsx/BudgetPie';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path = "/budgetpie/:id" element = {<BudgetPie/>} />
     </Routes>
   </BrowserRouter>
   );
